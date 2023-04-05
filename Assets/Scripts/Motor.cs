@@ -14,9 +14,17 @@ public class Motor : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             m_rb.AddForce(transform.forward * m_force, ForceMode.Impulse);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (var surface in m_surfaces)
+        {
+            surface.Simulate(m_rb);
         }
     }
 }

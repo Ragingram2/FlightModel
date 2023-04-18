@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 struct triangle
 {
@@ -83,7 +82,7 @@ public class AeroSurface : MonoBehaviour
         }
     }
 
-    public void Simulate(Rigidbody rb)
+    public void Simulate(PhysicsBody rb)
     {
         for (int i = 0; i < m_triangles.Count; i++)
         {

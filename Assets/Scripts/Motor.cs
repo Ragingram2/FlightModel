@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Motor : PhysicsBody
 {
-    [SerializeField] private float m_force = 10;
+    //[SerializeField] private float m_force = 10;
     [SerializeField] private List<AeroSurface> m_surfaces;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AddRelativeForce(transform.forward * m_force);
+            //AddRelativeForce(transform.forward * m_force);
         }
     }
 
@@ -21,5 +21,6 @@ public class Motor : PhysicsBody
         {
             surface.Simulate(this);
         }
+        base.Simulate();
     }
 }

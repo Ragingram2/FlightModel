@@ -17,7 +17,7 @@ public class PhysicsBody : MonoBehaviour
     public Matrix4x4 invInertia;
     public bool gravity = true;
 
-    void FixedUpdate()
+    public void Simulate()
     {
         m_position = transform.position;
         m_rotation = transform.rotation;

@@ -70,6 +70,12 @@ public class OrbitCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update()
+    {
+        distance += Input.mouseScrollDelta.y;
+        distance = Mathf.Clamp(distance, 0,20);
+    }
+
     void LateUpdate()
     {
         UpdateFocusPoint();

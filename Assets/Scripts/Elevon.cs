@@ -16,9 +16,13 @@ public class Elevon : MonoBehaviour
 {
     [SerializeField]
     private ControlAxis control;
-    private float angle;
+    public float angle;
 
-    private Quaternion m_initialRot;
+    public float pitch = 0;
+    public float roll = 0;
+    public float yaw = 0;
+
+    public Quaternion m_initialRot;
 
     [SerializeField]
     [Range(0, 15)]
@@ -27,29 +31,6 @@ public class Elevon : MonoBehaviour
     public void Start()
     {
         m_initialRot = transform.rotation;
-    }
-
-    public void Update()
-    {
-        angle = Mathf.Clamp(angle, -1, 1);
-    }
-
-    public void Roll()
-    {
-        var product = Vector3.Cross(transform.position, transform.root.position);
-        if (product.y < 0)
-            angle = -angle;
-        transform.rotation = m_initialRot * Quaternion.AngleAxis(angle * maxAngle, -transform.forward);
-    }
-
-    public void Pitch()
-    {
-        transform.rotation = m_initialRot * Quaternion.AngleAxis(angle * maxAngle, -transform.forward);
-    }
-
-    public void Yaw()
-    {
-        transform.rotation = m_initialRot * Quaternion.AngleAxis(angle * maxAngle, -transform.forward);
     }
 
     public bool CheckControl(ControlAxis mask)

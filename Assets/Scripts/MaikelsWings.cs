@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class MaikelsWings : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MaikelsWings : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float m_liftEfficiency = 0.1f;
 
+    [SerializeField] private List<Wing> m_wings = new List<Wing>();
 
     void Start()
     {
@@ -46,13 +48,17 @@ public class MaikelsWings : MonoBehaviour
         float speed = m_rigidbody.velocity.magnitude;
         if (speed > 0f)
         {
-            Vector3 liftNormal = (m_rigidbody.velocity - Vector3.Project(m_rigidbody.velocity, transform.forward)).normalized;
-            Debug.DrawRay(transform.position, liftNormal, Color.blue);
-            Debug.DrawRay(transform.position, m_rigidbody.velocity, Color.red);
-            Debug.DrawRay(transform.position, Vector3.Reflect(m_rigidbody.velocity, liftNormal), Color.green);
+            foreach(var wing in m_wings)
+            {
+                wing.Simulate(m_rigidbody, m_liftEfficiency);
+            }
+            //Vector3 liftNormal = (m_rigidbody.velocity - Vector3.Project(m_rigidbody.velocity, transform.forward)).normalized;
+            //Debug.DrawRay(transform.position, liftNormal, Color.blue);
+            //Debug.DrawRay(transform.position, m_rigidbody.velocity, Color.red);
+            //Debug.DrawRay(transform.position, Vector3.Reflect(m_rigidbody.velocity, liftNormal), Color.green);
 
-            m_liftForce = Vector3.Reflect(m_rigidbody.velocity, liftNormal) * m_liftEfficiency;
-            m_rigidbody.velocity = (m_rigidbody.velocity * (1f - m_liftEfficiency)) + m_liftForce;
+            //m_liftForce = Vector3.Reflect(m_rigidbody.velocity, liftNormal) * m_liftEfficiency;
+            //m_rigidbody.velocity = (m_rigidbody.velocity * (1f - m_liftEfficiency)) + m_liftForce;
         }
     }
 

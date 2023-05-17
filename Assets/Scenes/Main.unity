@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -688,6 +688,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 978417597141838406, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 978417597141838406, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 978417597141838406, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 978417597141838406, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2159597496261316374, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
       propertyPath: m_Interpolate
@@ -753,6 +773,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3299043921849554257, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3299043921849554257, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3299043921849554257, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3299043921849554257, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_liftEfficiency
+      value: 0.013
+      objectReference: {fileID: 0}
     - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
       propertyPath: m_wings.Array.size
@@ -783,6 +828,26 @@ PrefabInstance:
       propertyPath: m_wings.Array.data[4]
       value: 
       objectReference: {fileID: 1520359769}
+    - target: {fileID: 6073181365609631624, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073181365609631624, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073181365609631624, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6073181365609631624, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9139574436336819708, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
       propertyPath: maxAngle

@@ -50,7 +50,7 @@ public class Elevon : MonoBehaviour
 
         if (control.HasFlag(ControlAxis.Pitch))
         {
-            var prod = Vector3.Cross(transform.position, m_rightpoint);
+            var prod = Vector3.Cross(transform.position, m_rightpoint - transform.root.position);
             if (prod.y < 0)
                 m_rotationAxis = Vector3.left;
             else
@@ -66,7 +66,7 @@ public class Elevon : MonoBehaviour
 
         if (control.HasFlag(ControlAxis.Roll) && Mathf.Abs(m_axes.z) > 0.0f)
         {
-            var prod = Vector3.Cross(transform.position, m_backpoint);
+            var prod = Vector3.Cross(transform.position - transform.root.position, m_backpoint - transform.root.position);
             if (prod.y <= 0)
                 m_rotationAxis = Vector3.left;
             else
@@ -77,29 +77,16 @@ public class Elevon : MonoBehaviour
         transform.rotation = m_initialRot * Quaternion.AngleAxis(m_angle * maxAngle, m_rotationAxis);
     }
 
-    //public bool CheckControl(ControlAxis mask)
-    //{
-    //    return control.HasFlag(mask);
-    //}
-
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(m_backpoint, .1f);
-        //var product = Vector3.Cross(transform.position, m_backpoint);
-        //if (product.y < 0)
-        //{
-        //    Handles.Label(transform.position, "Left");
-        //}
+        //Gizmos.DrawSphere(m_backpoint, .1f);
+        //Gizmos.DrawSphere(m_rightpoint, .1f);
+        //Gizmos.DrawLine(transform.position, m_rightpoint);
+        //var prod = Vector3.Cross(transform.position - transform.root.position, m_rightpoint - transform.root.position);
+        //Handles.Label(transform.position + Vector3.up, $"{prod}");
+        //if (prod.y < 0)
+        //    Handles.Label(transform.position, "Front");
         //else
-        //{
-        //    Handles.Label(transform.position, "Right");
-        //}
-        Gizmos.DrawSphere(m_rightpoint, .1f);
-        Gizmos.DrawLine(transform.position, m_rightpoint);
-        var prod = Vector3.Cross(transform.position, m_rightpoint);
-        if (prod.y < 0)
-            Handles.Label(transform.position, "Front");
-        else
-            Handles.Label(transform.position, "Back");
+        //    Handles.Label(transform.position, "Back");
     }
 }

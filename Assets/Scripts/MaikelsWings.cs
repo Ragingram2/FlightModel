@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MaikelsWings : MonoBehaviour
 {
@@ -18,9 +19,13 @@ public class MaikelsWings : MonoBehaviour
 
     [SerializeField] private List<Wing> m_wings = new List<Wing>();
 
+    public float Throttle { get { return m_throttle; } set { m_throttle = value; } }
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+
+        m_wings = GetComponentsInChildren<Wing>().ToList();
     }
 
     private void Update()
@@ -52,14 +57,6 @@ public class MaikelsWings : MonoBehaviour
             {
                 wing.Simulate(m_rigidbody, m_liftEfficiency);
             }
-            //Vector3 vel = transform.forward * 10f;
-            //Vector3 liftNormal = (vel - Vector3.Project(m_rigidbody.velocity, transform.forward)).normalized;
-            //Debug.DrawRay(transform.position + transform.right, liftNormal, Color.blue);
-            //Debug.DrawRay(transform.position, vel, Color.red);
-            //Debug.DrawRay(transform.position, Vector3.Reflect(vel, liftNormal) * m_liftEfficiency, Color.green);
-            //Debug.DrawRay(transform.position, vel * (1f - m_liftEfficiency), Color.yellow);
-            //m_liftForce = Vector3.Reflect(m_rigidbody.velocity, liftNormal) * m_liftEfficiency;
-            //m_rigidbody.velocity = (m_rigidbody.velocity * (1f - m_liftEfficiency)) + m_liftForce;
         }
     }
 

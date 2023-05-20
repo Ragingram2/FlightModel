@@ -30,7 +30,7 @@ public class Elevon : MonoBehaviour
 
     public void Awake()
     {
-        m_initialRot = transform.rotation;
+        m_initialRot = transform.localRotation;
     }
 
     private void Update()
@@ -74,7 +74,7 @@ public class Elevon : MonoBehaviour
             m_angle = m_axes.z;
         }
 
-        transform.rotation = m_initialRot * Quaternion.AngleAxis(m_angle * maxAngle, m_rotationAxis);
+        transform.localRotation = m_initialRot * Quaternion.AngleAxis(m_angle * maxAngle, m_rotationAxis);
     }
 
     private void OnDrawGizmos()

@@ -43,7 +43,8 @@ public class MaikelsWings : MonoBehaviour
     {
         Glide();
 
-        m_rigidbody.AddForceAtPosition(m_throttle * transform.forward * m_motorForce, m_thrustPoint.position, ForceMode.Force);
+        // m_rigidbody.AddForceAtPosition(m_throttle * transform.forward * m_motorForce, m_thrustPoint.position, ForceMode.Force);
+        m_rigidbody.AddForce(m_throttle * transform.forward * m_motorForce, ForceMode.Force);
     }
 
     private void Glide()
@@ -83,7 +84,7 @@ public class SciUtil
     // only accurate for altitudes < 11km
     public static float GetAirDensity(float altitude)
     {
-        if(0.0f <= altitude && altitude <= 11000.0f)
+        if (0.0f <= altitude && altitude <= 11000.0f)
         {
             return 1;
         }

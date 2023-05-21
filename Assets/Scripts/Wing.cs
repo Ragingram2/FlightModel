@@ -1,17 +1,32 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+
+
+[Flags]
+public enum Direction
+{
+    UP,
+    RIGHT,
+    FORWARD
+}
+
 public class Wing : MonoBehaviour
 {
     [SerializeField] private AirFoil airFoil;
+    [SerializeField] private Direction wingNormalAxis = Direction.UP;
+    [SerializeField] private bool airFoilEnabled = true;
     private Vector3 vel;
+    private Vector3 localVel;
     private Vector3 angularVel;
     private Vector3 dragNormal;
     private Vector3 liftNormal;
     private Vector3 liftForce;
     private Vector3 dragForce;
+    private Vector3 wingNormal;
     private float aoa;
     private float area = 1;
     private float wingspan = 2f;//width
@@ -24,8 +39,9 @@ public class Wing : MonoBehaviour
         if (TryGetComponent<MeshCollider>(out col))
         {
             var bounds = col.bounds;
-            wingspan = Mathf.Abs(bounds.max.x + bounds.min.x);
-            chord = Mathf.Abs(bounds.max.z + bounds.min.z);
+            var size = bounds.size;
+            wingspan = size.x;
+            chord = size.z;
             area = wingspan * chord;
         }
 
@@ -34,55 +50,54 @@ public class Wing : MonoBehaviour
 
     public void Simulate(Rigidbody rb)
     {
-        angularVel = rb.angularVelocity;
-        vel = getPointVelocity(transform.localPosition);
+        if (!airFoilEnabled)
+            return;
 
-        dragNormal = -vel.normalized;
-        liftNormal = Vector3.Cross(Vector3.Cross(-vel, transform.up), -vel).normalized;
-        aoa = Mathf.Asin(Vector3.Dot(dragNormal, transform.up)) * Mathf.Rad2Deg;
+        angularVel = rb.angularVelocity;
+        vel = rb.velocity;
+
+        localVel = rb.GetPointVelocity(transform.position);
+        if (localVel.magnitude <= Mathf.Epsilon) return;
+
+        switch (wingNormalAxis)
+        {
+            case Direction.UP:
+                wingNormal = transform.up;
+                break;
+            case Direction.RIGHT:
+                wingNormal = transform.right;
+                break;
+            case Direction.FORWARD:
+                wingNormal = transform.forward;
+                break;
+        }
+
+        dragNormal = -localVel.normalized;
+        liftNormal = Vector3.Cross(Vector3.Cross(-localVel, wingNormal), -localVel).normalized;
+        aoa = Mathf.Asin(Vector3.Dot(dragNormal, wingNormal)) * Mathf.Rad2Deg;
 
         (float lift, float drag) coeffs = airFoil.sample(aoa);
 
         float inducedDragCoeff = Mathf.Pow(coeffs.lift, 2) / (Mathf.PI * aspectRatio);
         float airDensity = SciUtil.GetAirDensity(1.0f);
-        float dynamicPressure = .5f * (vel.sqrMagnitude) * airDensity * area;
+        float dynamicPressure = .5f * (localVel.sqrMagnitude) * airDensity * area;
         liftForce = liftNormal * coeffs.lift * dynamicPressure;
         dragForce = dragNormal * (coeffs.drag + inducedDragCoeff) * dynamicPressure;
         rb.AddForceAtPosition(liftForce + dragForce, transform.position, ForceMode.Impulse);
-
-        //projected = Vector3.Project(vel, transform.forward);
-        ////liftNormal = (vel - new Vector3(projected.x, projected.y, 0)).normalized;
-        //liftNormal = (vel - projected).normalized;
-        //liftForce = Vector3.Reflect(vel, liftNormal) * efficiency;
-        //rb.velocity = (vel * (1f - efficiency));
-        //rb.AddForceAtPosition(liftForce, transform.position, ForceMode.Impulse);
-    }
-
-    Vector3 getPointVelocity(Vector3 point)
-    {
-        return invTransformDirection(vel) + getPointAngularVelocity(point);
-    }
-    Vector3 getPointAngularVelocity(Vector3 point)
-    {
-        return Vector3.Cross(angularVel, point);
-    }
-
-    Vector3 invTransformDirection(Vector3 direction)
-    {
-        return Quaternion.Inverse(transform.rotation) * direction;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        if (liftNormal.magnitude > 0)
-            Gizmos.DrawRay(transform.position, liftNormal);
+        Gizmos.DrawRay(transform.position, liftNormal);
         Gizmos.color = Color.red;
-        if (dragNormal.magnitude > 0)
-            Gizmos.DrawRay(transform.position, dragNormal);
+        Gizmos.DrawRay(transform.position, dragNormal);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, vel);
+        Gizmos.DrawRay(transform.position, localVel);
 
-        Handles.Label(transform.position, $"Area: {area}");
+        Handles.Label(transform.position + transform.up * .1f, $"Velocity: {vel}");
+        Handles.Label(transform.position + transform.up * .2f, $"LiftForce: {liftForce}");
+        Handles.Label(transform.position + transform.up * .3f, $"DragForce: {dragForce}");
+
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
+using UnityEditor;
 
 public class MaikelsWings : MonoBehaviour
 {
@@ -33,12 +34,15 @@ public class MaikelsWings : MonoBehaviour
     private float m_throttle = 0;
     private List<Wing> m_wings = new List<Wing>();
     private Vector3 m_input;
+    private Vector3 m_prevInput;
     private float m_pitchDiff = 0;
     private float m_rollDiff = 0;
     private float m_yawDiff = 0;
+    private Vector3 m_vel;
 
     public float Throttle { get { return m_throttle; } set { m_throttle = value; } }
     public float AirSpeed { get { return m_rigidbody.velocity.magnitude; } }
+    public bool SAS { get { return m_enableSAS; } }
 
     void Start()
     {
@@ -48,6 +52,10 @@ public class MaikelsWings : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            m_enableSAS = !m_enableSAS;
+        }
         if (Input.GetKey(m_throttleUpKey))
         {
             m_throttle += m_throttleStep * Time.deltaTime;
@@ -59,24 +67,24 @@ public class MaikelsWings : MonoBehaviour
         m_throttle = Mathf.Clamp01(m_throttle);
         m_input = Vector3.zero;
 
+
         if (m_enableSAS)
         {
-            m_pitchDiff = Vector3.Dot(transform.up, Vector3.up);
-            m_rollDiff = Vector3.Dot(transform.right, -Vector3.right);
-            m_yawDiff = Vector3.Dot(transform.forward, Vector3.forward);
-            m_input = new Vector3(m_yawDiff, m_pitchDiff, m_rollDiff);
-        }
-        else
-        {
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-                m_input.y = 0;
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                m_input.x = 0;
-            if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.E))
-                m_input.z = 0;
+            m_pitchDiff = -Vector3.Dot(transform.up, new Vector3(m_vel.x, 0, 0).normalized);
+            m_pitchDiff = m_pitchDiff > .1f ? 1f : m_pitchDiff < -.1f ? -1f : 0f;
 
-            m_input = new Vector3(Input.GetAxisRaw(m_yawInput), Input.GetAxisRaw(m_pitchInput), Input.GetAxisRaw(m_rollInput));
+            m_rollDiff = Vector3.Dot(transform.right, new Vector3(0, m_vel.y, 0).normalized);
+            m_rollDiff = m_rollDiff > .1f ? 1f : m_rollDiff < -.1f ? -1f : 0f;
+
+            m_yawDiff = Vector3.Dot(transform.forward, new Vector3(0, 0, m_vel.z).normalized);
+            m_yawDiff = m_yawDiff > .1f ? 1f : m_yawDiff < -.1f ? -1f : 0f;
+
+            var totalDiff = new Vector3(m_yawDiff, m_pitchDiff, m_rollDiff);
+            m_input = totalDiff;
         }
+        m_input.x = Mathf.Abs(Input.GetAxis(m_yawInput)) > Mathf.Epsilon ? Input.GetAxis(m_yawInput) : m_input.x;
+        m_input.y = Mathf.Abs(Input.GetAxis(m_pitchInput)) > Mathf.Epsilon ? Input.GetAxis(m_pitchInput) : m_input.y;
+        m_input.z = Mathf.Abs(Input.GetAxis(m_rollInput)) > Mathf.Epsilon ? Input.GetAxis(m_rollInput) : m_input.z;
     }
 
     void FixedUpdate()
@@ -91,17 +99,28 @@ public class MaikelsWings : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.right * 2f);
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.up * 2f);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, transform.forward * 2f);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawRay(transform.position, transform.right * 1.1f);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawRay(transform.position, transform.up * 1.1f);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawRay(transform.position, transform.forward * 1.1f);
 
-        Gizmos.color = Color.white;
-        Gizmos.DrawRay(transform.position, -Vector3.right);
-        Gizmos.DrawRay(transform.position, Vector3.up);
-        Gizmos.DrawRay(transform.position, Vector3.forward);
+        //Handles.Label(transform.position + transform.up * .5f, $"{m_input}");
+
+        //if (m_rigidbody)
+        //{
+        //    m_vel = Vector3.one;
+        //    var temp = m_vel;
+        //    temp.x *= -1f;
+        //    m_vel = temp;
+        //    Gizmos.color = Color.magenta;
+        //    Gizmos.DrawRay(transform.position, new Vector3(m_vel.x, 0, 0).normalized);
+        //    Gizmos.color = Color.yellow;
+        //    Gizmos.DrawRay(transform.position, new Vector3(0, m_vel.y, 0).normalized);
+        //    Gizmos.color = Color.cyan;
+        //    Gizmos.DrawRay(transform.position, new Vector3(0, 0, m_vel.z).normalized);
+        //}
     }
 }
 

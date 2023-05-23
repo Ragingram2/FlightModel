@@ -82,6 +82,9 @@ public class Wing : MonoBehaviour
 
     public void UpdateControlSurface(Vector3 input)
     {
+        if (!m_isControlSurface)
+            return;
+
         m_zAxis = -(transform.root.forward * 5f);
         m_xAxis = -(transform.root.right * 5f);
 

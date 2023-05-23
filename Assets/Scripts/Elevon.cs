@@ -5,18 +5,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[Flags]
-public enum ControlAxis : uint
-{
-    Pitch = 1 << 0,
-    Roll = 1 << 1,
-    Yaw = 1 << 2
-}
+
 
 public class Elevon : MonoBehaviour
 {
-    [SerializeField]
-    private ControlAxis control;
+    [SerializeField] private ControlAxis control;
     [SerializeField]
     [Range(0, 15)]
     private float maxAngle = 15;

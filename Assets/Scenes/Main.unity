@@ -1321,39 +1321,18 @@ MonoBehaviour:
   m_throttleValue: {fileID: 387719646}
   m_airspeedValue: {fileID: 1022571168}
   m_plane: {fileID: 1767466182}
---- !u!1 &1713894676 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2753057320988928780, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-    type: 3}
-  m_PrefabInstance: {fileID: 4436495722998491504}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1767466182 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
     type: 3}
   m_PrefabInstance: {fileID: 4436495722998491504}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713894676}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1e36ba56d9b7641a20e28c6419228b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1767466188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713894676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
 --- !u!1 &2124221038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,45 +1432,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 820578236537385242, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_ForwardFriction.m_Stiffness
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 820578236537385242, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 820578236537385242, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_ExtremumSlip
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001095664654748803, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 35000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001095664654748803, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_ForwardFriction.m_Stiffness
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001095664654748803, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1001095664654748803, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_ForwardFriction.m_ExtremumSlip
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 2159597496261316374, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
-      propertyPath: m_Mass
-      value: 500
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2753057320988928780, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
@@ -1511,7 +1455,7 @@ PrefabInstance:
     - target: {fileID: 3278343041985098166, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 3.899
       objectReference: {fileID: 0}
     - target: {fileID: 3278343041985098166, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
@@ -1555,50 +1499,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3331212408676193380, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
-      propertyPath: wingNormalAxis
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3859666450799967148, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+      propertyPath: m_airFoil
+      value: 
+      objectReference: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d,
+        type: 2}
+    - target: {fileID: 3331212408676193380, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
-      propertyPath: m_LocalScale.y
+      propertyPath: m_control
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331212408676193380, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_isControlSurface
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331212408676193380, guid: fec9a40760b9d6b43b27934a7c0de6ea,
+        type: 3}
+      propertyPath: m_wingNormalDirection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
-      propertyPath: m_motorForce
-      value: 5000
+      propertyPath: m_enableSAS
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4579949867273905633, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.715
-      objectReference: {fileID: 0}
-    - target: {fileID: 6616023574481219581, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.715
-      objectReference: {fileID: 0}
-    - target: {fileID: 7368757701601197750, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_ForwardFriction.m_Stiffness
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7368757701601197750, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7368757701601197750, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_ExtremumSlip
-      value: 0.2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2053087767442736872, guid: fec9a40760b9d6b43b27934a7c0de6ea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2753057320988928780, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1767466188}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fec9a40760b9d6b43b27934a7c0de6ea, type: 3}

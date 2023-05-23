@@ -118,12 +118,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.073
+      value: -2.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
@@ -204,6 +204,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6960892744362037775, guid: 7ca9abc0532fb1f47973ef2aee44dead,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
@@ -362,6 +367,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1547825393269814204, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.715
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547825393269814204, guid: 7ca9abc0532fb1f47973ef2aee44dead,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -513,7 +523,7 @@ PrefabInstance:
     - target: {fileID: 8153042266630945184, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.35
+      value: 0.715
       objectReference: {fileID: 0}
     - target: {fileID: 8888379338929679468, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
@@ -586,10 +596,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 621597880766850952, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3652462070103719328}
-    - targetCorrespondingSourceObject: {fileID: 621597880766850952, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8667319169477068891}
     - targetCorrespondingSourceObject: {fileID: -2237554230784142384, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
@@ -610,19 +616,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5031470155089927506, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2788480203874774762}
-    - targetCorrespondingSourceObject: {fileID: -5031470155089927506, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1455242244385250074}
     - targetCorrespondingSourceObject: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6766394961652099190}
-    - targetCorrespondingSourceObject: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2849241365354231629}
     - targetCorrespondingSourceObject: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
@@ -646,10 +644,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -41796459092660725, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5957717283573957775}
-    - targetCorrespondingSourceObject: {fileID: -41796459092660725, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5075546619982097908}
     - targetCorrespondingSourceObject: {fileID: 6262041035160446578, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
@@ -662,15 +656,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -1861646172203860860, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5690848295529186547}
-    - targetCorrespondingSourceObject: {fileID: -1861646172203860860, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3190705105780222226}
-    - targetCorrespondingSourceObject: {fileID: -2449657260544258615, guid: 7ca9abc0532fb1f47973ef2aee44dead,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8994939564095042197}
     - targetCorrespondingSourceObject: {fileID: -2449657260544258615, guid: 7ca9abc0532fb1f47973ef2aee44dead,
         type: 3}
       insertIndex: -1
@@ -728,9 +714,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 0
+  m_airFoilEnabled: 1
+  m_control: 0
+  maxAngle: 15
 --- !u!1 &1089715389365086056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -759,20 +748,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8930411636210447390, guid: 7ca9abc0532fb1f47973ef2aee44dead, type: 3}
---- !u!114 &2849241365354231629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089715389365086056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 3
-  maxAngle: 15
 --- !u!114 &6974160863893434797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,9 +760,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 3
+  maxAngle: 15
 --- !u!1 &1214030508275201267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5031470155089927506, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -816,20 +794,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1911331920016965910, guid: 7ca9abc0532fb1f47973ef2aee44dead, type: 3}
---- !u!114 &2788480203874774762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214030508275201267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 1
-  maxAngle: 15
 --- !u!114 &1455242244385250074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,9 +806,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 1
+  maxAngle: 15
 --- !u!1 &2474131129136198101 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 621597880766850952, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -863,22 +830,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
---- !u!114 &3652462070103719328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2474131129136198101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 3
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 3
   maxAngle: 15
 --- !u!64 &8667319169477068891
 MeshCollider:
@@ -950,8 +906,12 @@ MonoBehaviour:
   m_thrustPoint: {fileID: 6024985225822889662}
   m_throttleUpKey: 304
   m_throttleDownKey: 306
+  m_pitchInput: Vertical
+  m_yawInput: Horizontal
+  m_rollInput: Roll
   m_throttleStep: 0.1
-  m_motorForce: 20000
+  m_motorForce: 5000
+  m_enableSAS: 1
 --- !u!1 &3275902987731683139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 541525646253953310, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -970,24 +930,24 @@ WheelCollider:
   m_Radius: 0.045
   m_SuspensionSpring:
     spring: 35000
-    damper: 4500
+    damper: 450
     targetPosition: 0.5
   m_SuspensionDistance: 0.12
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.0001
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
+    m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1026,7 +986,7 @@ WheelCollider:
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.0001
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1038,7 +998,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1071,7 +1031,7 @@ WheelCollider:
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_WheelDampingRate: 0.0001
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
@@ -1083,7 +1043,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1099,20 +1059,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3095585781194446429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5690848295529186547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5539322497830939353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 1
-  maxAngle: 15
 --- !u!114 &3190705105780222226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1125,9 +1071,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 1
+  maxAngle: 15
 --- !u!1 &5861388018929217405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8908805629055465760, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1168,9 +1117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 0
+  m_airFoilEnabled: 1
+  m_control: 0
+  maxAngle: 15
 --- !u!1 &5885192300833503793 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8888379338929679468, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1211,29 +1163,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 0
+  m_airFoilEnabled: 1
+  m_control: 0
+  maxAngle: 15
 --- !u!1 &6169430706732791894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -41796459092660725, guid: 7ca9abc0532fb1f47973ef2aee44dead,
     type: 3}
   m_PrefabInstance: {fileID: 3095585781194446429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5957717283573957775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6169430706732791894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 3
-  maxAngle: 15
 --- !u!114 &5075546619982097908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,9 +1187,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 3
+  maxAngle: 15
 --- !u!1 &6539949040949163096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1137392151605927419, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1303,29 +1247,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 1
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 0}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 0
+  m_airFoilEnabled: 1
+  m_control: 0
+  maxAngle: 15
 --- !u!1 &8427549294337579924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2449657260544258615, guid: 7ca9abc0532fb1f47973ef2aee44dead,
     type: 3}
   m_PrefabInstance: {fileID: 3095585781194446429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8994939564095042197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8427549294337579924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff69ba75bf901c84ea9a72e91a169dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: 3
-  maxAngle: 15
 --- !u!114 &4927014927155765983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,9 +1271,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 1
+  m_airFoilEnabled: 1
+  m_control: 3
+  maxAngle: 15
 --- !u!1 &8940357714445348911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6262041035160446578, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1381,6 +1317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8622b35f2e91a8740adb81c9122f8e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
-  wingNormalAxis: 0
-  airFoilEnabled: 1
+  m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
+  m_wingNormalDirection: 0
+  m_isControlSurface: 0
+  m_airFoilEnabled: 1
+  m_control: 0
+  maxAngle: 15

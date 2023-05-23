@@ -25,8 +25,8 @@ public class Elevon : MonoBehaviour
     private Vector3 m_rotationAxis;
     private Quaternion m_initialRot;
     private float m_angle;
-    private Vector3 m_backpoint;
-    private Vector3 m_rightpoint;
+    private Vector3 m_zAxis;
+    private Vector3 m_xAxis;
 
     public void Awake()
     {
@@ -35,8 +35,8 @@ public class Elevon : MonoBehaviour
 
     private void Update()
     {
-        m_backpoint = transform.root.position - (transform.root.forward * 5f);
-        m_rightpoint = transform.root.position - (transform.root.right * 5f) - (transform.root.forward * 1f);
+        m_zAxis = -(transform.root.forward * 5f);
+        m_xAxis = -(transform.root.right * 5f);
 
         m_axes = new Vector3(Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Roll"));
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
@@ -48,30 +48,29 @@ public class Elevon : MonoBehaviour
 
         m_angle = 0;
 
-        if (control.HasFlag(ControlAxis.Pitch))
-        {
-            var prod = Vector3.Cross(transform.position, m_rightpoint - transform.root.position);
-            if (prod.y < 0)
-                m_rotationAxis = Vector3.left;
-            else
-                m_rotationAxis = Vector3.right;
-            m_angle = m_axes.x;
-        }
-
-        if (control.HasFlag(ControlAxis.Yaw))
-        {
-            m_rotationAxis = Vector3.up;
-            m_angle = m_axes.y;
-        }
-
         if (control.HasFlag(ControlAxis.Roll) && Mathf.Abs(m_axes.z) > 0.0f)
         {
-            var prod = Vector3.Cross(transform.position - transform.root.position, m_backpoint - transform.root.position);
+            var prod = Vector3.Cross(m_zAxis, transform.position - transform.root.position);
+            if (prod.y <= 0)
+                m_rotationAxis = Vector3.right;
+            else
+                m_rotationAxis = Vector3.left;
+            m_angle = m_axes.z;
+        }
+        else if (control.HasFlag(ControlAxis.Pitch) && Mathf.Abs(m_axes.x) > 0.0f)
+        {
+            var prod = Vector3.Cross(m_xAxis, transform.position - transform.root.position);
             if (prod.y <= 0)
                 m_rotationAxis = Vector3.left;
             else
                 m_rotationAxis = Vector3.right;
-            m_angle = m_axes.z;
+
+            m_angle = m_axes.x;
+        }
+        else if (control.HasFlag(ControlAxis.Yaw) && Mathf.Abs(m_axes.y) > 0.0f)
+        {
+            m_rotationAxis = Vector3.up;
+            m_angle = m_axes.y;
         }
 
         transform.localRotation = m_initialRot * Quaternion.AngleAxis(m_angle * maxAngle, m_rotationAxis);
@@ -79,14 +78,13 @@ public class Elevon : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawSphere(m_backpoint, .1f);
-        //Gizmos.DrawSphere(m_rightpoint, .1f);
-        //Gizmos.DrawLine(transform.position, m_rightpoint);
-        //var prod = Vector3.Cross(transform.position - transform.root.position, m_rightpoint - transform.root.position);
-        //Handles.Label(transform.position + Vector3.up, $"{prod}");
-        //if (prod.y < 0)
-        //    Handles.Label(transform.position, "Front");
-        //else
-        //    Handles.Label(transform.position, "Back");
+        //m_zAxis = -(transform.root.forward * 5f);
+        //m_xAxis = -(transform.root.right * 5f);
+        //if (control.HasFlag(ControlAxis.Pitch))
+        //{
+        //    Gizmos.DrawSphere(transform.root.position + m_xAxis, .1f);
+        //    Gizmos.DrawLine(transform.root.position + m_xAxis, transform.position);
+        //    Gizmos.DrawRay(transform.root.position + m_xAxis, m_xAxis * -10f);
+        //}
     }
 }

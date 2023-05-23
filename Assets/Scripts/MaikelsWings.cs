@@ -18,6 +18,7 @@ public class MaikelsWings : MonoBehaviour
     private List<Wing> m_wings = new List<Wing>();
 
     public float Throttle { get { return m_throttle; } set { m_throttle = value; } }
+    public float AirSpeed { get { return m_rigidbody.velocity.magnitude; }}
 
     void Start()
     {
@@ -43,8 +44,8 @@ public class MaikelsWings : MonoBehaviour
     {
         Glide();
 
-        // m_rigidbody.AddForceAtPosition(m_throttle * transform.forward * m_motorForce, m_thrustPoint.position, ForceMode.Force);
-        m_rigidbody.AddForce(m_throttle * transform.forward * m_motorForce, ForceMode.Force);
+        m_rigidbody.AddForceAtPosition(m_throttle * transform.forward * m_motorForce, m_thrustPoint.position, ForceMode.Force);
+        //m_rigidbody.AddForce(m_throttle * transform.forward * m_motorForce, ForceMode.Force);
     }
 
     private void Glide()
@@ -61,11 +62,11 @@ public class MaikelsWings : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (m_rigidbody)
-        {
-            Gizmos.DrawSphere(transform.position + m_rigidbody.centerOfMass, .1f);
-            Gizmos.DrawRay(transform.position + m_rigidbody.centerOfMass, m_rigidbody.velocity);
-        }
+        //if (m_rigidbody)
+        //{
+        //    Gizmos.DrawSphere(transform.position + m_rigidbody.centerOfMass, .1f);
+        //    Gizmos.DrawRay(transform.position + m_rigidbody.centerOfMass, m_rigidbody.velocity);
+        //}
     }
 }
 

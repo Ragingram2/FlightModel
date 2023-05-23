@@ -73,7 +73,7 @@ public class Wing : MonoBehaviour
         }
 
         dragNormal = -localVel.normalized;
-        liftNormal = Vector3.Cross(Vector3.Cross(-localVel, wingNormal), -localVel).normalized;
+        liftNormal = Vector3.Cross(Vector3.Cross(dragNormal, wingNormal), dragNormal).normalized;
         aoa = Mathf.Asin(Vector3.Dot(dragNormal, wingNormal)) * Mathf.Rad2Deg;
 
         (float lift, float drag) coeffs = airFoil.sample(aoa);
@@ -83,21 +83,31 @@ public class Wing : MonoBehaviour
         float dynamicPressure = .5f * (localVel.sqrMagnitude) * airDensity * area;
         liftForce = liftNormal * coeffs.lift * dynamicPressure;
         dragForce = dragNormal * (coeffs.drag + inducedDragCoeff) * dynamicPressure;
-        rb.AddForceAtPosition(liftForce + dragForce, transform.position, ForceMode.Impulse);
+        rb.AddForceAtPosition(liftForce + dragForce, transform.position, ForceMode.Force);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, liftNormal);
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, dragNormal);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, localVel);
+        Gizmos.DrawRay(transform.position, wingNormal);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, Vector3.Cross(dragNormal, wingNormal));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, liftNormal);
 
-        Handles.Label(transform.position + transform.up * .1f, $"Velocity: {vel}");
-        Handles.Label(transform.position + transform.up * .2f, $"LiftForce: {liftForce}");
-        Handles.Label(transform.position + transform.up * .3f, $"DragForce: {dragForce}");
+        //MeshCollider col;
+        //if (TryGetComponent<MeshCollider>(out col))
+        //{
+        //    var bounds = col.bounds;
+        //    var size = bounds.size;
+        //    wingspan = size.x;
+        //    chord = size.z;
+        //    area = wingspan * chord;
+        //}
+
+        //Handles.Label(transform.position, $"Area: {area}");
 
     }
 }

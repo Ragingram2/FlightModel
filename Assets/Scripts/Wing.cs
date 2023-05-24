@@ -26,17 +26,17 @@ public enum ControlAxis : uint
 
 public class Wing : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     private AirFoil m_airFoil;
-    [SerializeField] 
+    [SerializeField]
     private Direction m_wingNormalDirection = Direction.UP;
-    [SerializeField] 
+    [SerializeField]
     private bool m_isControlSurface = false;
-    [SerializeField] 
+    [SerializeField]
     private bool m_airFoilEnabled = true;
 
     [ShowIf("m_isControlSurface")]
-    [SerializeField] 
+    [SerializeField]
     private ControlAxis m_control;
     [ShowIf("m_isControlSurface")]
     [SerializeField]
@@ -146,7 +146,7 @@ public class Wing : MonoBehaviour
         (float lift, float drag) coeffs = m_airFoil.sample(m_aoa);
 
         float inducedDragCoeff = Mathf.Pow(coeffs.lift, 2) / (Mathf.PI * m_aspectRatio);
-        float airDensity = SciUtil.GetAirDensity(1.0f);
+        float airDensity = SciUtil.GetAirDensity(transform.position.y);
         float dynamicPressure = .5f * (m_localVel.sqrMagnitude) * airDensity * m_area;
         m_liftForce = m_liftNormal * coeffs.lift * dynamicPressure;
         m_dragForce = m_dragNormal * (coeffs.drag + inducedDragCoeff) * dynamicPressure;

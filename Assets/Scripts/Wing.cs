@@ -2,18 +2,19 @@ using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 
-[Flags]
 public enum Direction
 {
-    UP,
-    RIGHT,
-    FORWARD
+    Up,
+    Right,
+    Forward
 }
 
 [Flags]
@@ -24,25 +25,87 @@ public enum ControlAxis : uint
     Yaw = 1 << 2
 }
 
+[Flags]
+public enum Type : uint
+{
+    FIXED,
+    CONTROL
+}
+
+public struct Vertex
+{
+    public int idx;
+    public Vector3 pos;
+    public float x => pos.x;
+    public float y => pos.y;
+    public float z => pos.z;
+}
+
+public struct Triangle
+{
+    public Vertex v1;
+    public Vertex v2;
+    public Vertex v3;
+
+    public Vector3 position;
+    public Vector3 line1;
+    public Vector3 line2;
+    public Vector3 line3;
+    public Vector3 normal;
+
+    public float area;
+    public float aspectRatio;
+
+    public Triangle(int index, Vector3 first, Vector3 second, Vector3 third)
+    {
+        v1.idx = index;
+        v1.pos = first;
+
+        v2.idx = index;
+        v2.pos = second;
+
+        v3.idx = index;
+        v3.pos = third;
+
+        position = (v1.pos + v2.pos + v3.pos) / 3f;
+
+        line1 = (v2.pos - v1.pos);
+        line2 = (v3.pos - v2.pos);
+        line3 = (v1.pos - v3.pos);
+        var cross = Vector3.Cross(v1.pos - v2.pos, v1.pos - v3.pos);
+        area = cross.magnitude;
+        normal = cross.normalized;
+
+        var ac = v3.pos - v1.pos;
+        var ab = v2.pos - v1.pos;
+        var span = (ac - Vector3.Project(ac, ab)).magnitude;
+
+        aspectRatio = Mathf.Pow(span, 2) / area;
+    }
+}
+
 public class Wing : MonoBehaviour
 {
     [SerializeField]
     private AirFoil m_airFoil;
     [SerializeField]
-    private Direction m_wingNormalDirection = Direction.UP;
+    private Direction m_wingNormalDirection = Direction.Up;
+    [SerializeField]
+    private Type m_wingType = Type.FIXED;
     [SerializeField]
     private bool m_isControlSurface = false;
     [SerializeField]
     private bool m_airFoilEnabled = true;
-
     [ShowIf("m_isControlSurface")]
     [SerializeField]
     private ControlAxis m_control;
     [ShowIf("m_isControlSurface")]
     [SerializeField]
     [Range(0, 15)]
-    private float maxAngle = 15;
+    private float m_maxAngle = 15;
 
+    private Mesh m_mesh;
+    private List<Triangle> m_triangles = new List<Triangle>();
     private Vector3 m_localVel;
     private Vector3 m_dragNormal;
     private Vector3 m_liftNormal;
@@ -53,6 +116,7 @@ public class Wing : MonoBehaviour
     private Vector3 m_zAxis;
     private Vector3 m_xAxis;
     private Quaternion m_initialRot;
+    private float m_trim = 0;
     private float m_aoa;
     private float m_area = 1;
     private float m_wingspan = 2f;//width
@@ -67,6 +131,19 @@ public class Wing : MonoBehaviour
 
     public void Start()
     {
+        CalculateWingDimensions();
+        m_mesh = GetComponent<MeshFilter>().sharedMesh;
+        var meshTriIdx = m_mesh.triangles;
+        var meshTris = m_mesh.vertices;
+        m_triangles.Clear();
+        for (int i = 0; i < m_mesh.triangles.Length; i += 3)
+        {
+            m_triangles.Add(new Triangle(0, meshTris[meshTriIdx[i]], meshTris[meshTriIdx[i + 1]], meshTris[meshTriIdx[i + 2]]));
+        }
+    }
+
+    public void CalculateWingDimensions()
+    {
         MeshCollider col;
         if (TryGetComponent<MeshCollider>(out col))
         {
@@ -78,6 +155,17 @@ public class Wing : MonoBehaviour
         }
 
         m_aspectRatio = Mathf.Pow(m_wingspan, 2) / m_area;
+    }
+
+    public void SetTrim(float trim)
+    {
+        //m_trim = m_maxAngle - Mathf.Clamp(trim, -m_maxAngle, m_maxAngle);
+        //if (trim + (m_angle * m_maxAngle) > m_maxAngle)
+        //    m_trim = trim - ((trim + (m_angle * m_maxAngle)) - m_maxAngle);
+        //else if (trim + (m_angle * m_maxAngle) < -m_maxAngle)
+        //    m_trim = trim + ((trim - (m_angle * m_maxAngle)) + m_maxAngle);
+        //else
+        //    m_trim = trim;
     }
 
     public void UpdateControlSurface(Vector3 input)
@@ -115,7 +203,7 @@ public class Wing : MonoBehaviour
             m_angle = input.x;
         }
 
-        transform.localRotation = m_initialRot * Quaternion.AngleAxis(m_angle * maxAngle, m_rotationAxis);
+        transform.localRotation = m_initialRot * Quaternion.AngleAxis((m_angle * m_maxAngle), m_rotationAxis);
     }
 
     public void Simulate(Rigidbody rb)
@@ -124,17 +212,16 @@ public class Wing : MonoBehaviour
             return;
 
         m_localVel = rb.GetPointVelocity(transform.position);
-        //if (m_localVel.magnitude <= Mathf.Epsilon) return;
 
         switch (m_wingNormalDirection)
         {
-            case Direction.UP:
+            case Direction.Up:
                 m_wingNormal = transform.up;
                 break;
-            case Direction.RIGHT:
+            case Direction.Right:
                 m_wingNormal = transform.right;
                 break;
-            case Direction.FORWARD:
+            case Direction.Forward:
                 m_wingNormal = transform.forward;
                 break;
         }
@@ -153,30 +240,56 @@ public class Wing : MonoBehaviour
         rb.AddForceAtPosition(m_liftForce + m_dragForce, transform.position, ForceMode.Force);
     }
 
+    public void SimulatePerTri(Rigidbody rb)
+    {
+        if (!m_airFoilEnabled)
+            return;
+
+        foreach (var tri in m_triangles)
+        {
+            var localVel = rb.GetPointVelocity(transform.position + tri.position);
+
+            switch (m_wingNormalDirection)
+            {
+                case Direction.Up:
+                    m_wingNormal = transform.up;
+                    break;
+                case Direction.Right:
+                    m_wingNormal = transform.right;
+                    break;
+                case Direction.Forward:
+                    m_wingNormal = transform.forward;
+                    break;
+            }
+
+            var dragNormal = -localVel.normalized;
+            var liftNormal = Vector3.Cross(Vector3.Cross(dragNormal, m_wingNormal), dragNormal).normalized;
+            var aoa = Mathf.Asin(Vector3.Dot(dragNormal, m_wingNormal)) * Mathf.Rad2Deg;
+
+            (float lift, float drag) coeffs = m_airFoil.sample(aoa);
+
+            float inducedDragCoeff = Mathf.Pow(coeffs.lift, 2) / (Mathf.PI * tri.aspectRatio);
+            float airDensity = SciUtil.GetAirDensity(transform.position.y);
+            float dynamicPressure = .5f * (localVel.sqrMagnitude) * airDensity * tri.area;
+            var liftForce = liftNormal * coeffs.lift * dynamicPressure;
+            //Debug.DrawRay(transform.position + tri.position, liftForce, Color.green);
+            var dragForce = dragNormal * (coeffs.drag + inducedDragCoeff) * dynamicPressure;
+            //Debug.DrawRay(transform.position + tri.position, dragForce, Color.red);
+            rb.AddForceAtPosition(liftForce + dragForce, transform.position + tri.position, ForceMode.Force);
+        }
+    }
+
+    public Vector3 GetForce()
+    {
+        return m_liftForce + m_dragForce;
+    }
+
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawRay(transform.position, m_localVel/100f);
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawRay(transform.position, m_dragForce / 100f);
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawRay(transform.position, m_liftForce/100f);
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawRay(transform.position, Vector3.Cross(dragNormal, wingNormal));
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawRay(transform.position, liftNormal);
-
-        //MeshCollider col;
-        //if (TryGetComponent<MeshCollider>(out col))
+        //foreach (var tri in m_triangles)
         //{
-        //    var bounds = col.bounds;
-        //    var size = bounds.size;
-        //    wingspan = size.x;
-        //    chord = size.z;
-        //    area = wingspan * chord;
+        //    Gizmos.DrawRay(transform.position + tri.position, tri.normal);
         //}
-
-        //Handles.Label(transform.position, $"Area: {area}");
 
     }
 }

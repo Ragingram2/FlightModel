@@ -248,6 +248,12 @@ public class Wing : MonoBehaviour
         foreach (var tri in m_triangles)
         {
             var localVel = rb.GetPointVelocity(transform.position + tri.position);
+            var dragNormal = -localVel.normalized;
+
+            //if (Vector3.Dot(dragNormal, tri.normal) > 0)
+            //    continue;
+
+            //Debug.DrawRay(transform.position + (Vector3)(transform.worldToLocalMatrix * tri.position), tri.normal);
 
             switch (m_wingNormalDirection)
             {
@@ -262,7 +268,6 @@ public class Wing : MonoBehaviour
                     break;
             }
 
-            var dragNormal = -localVel.normalized;
             var liftNormal = Vector3.Cross(Vector3.Cross(dragNormal, m_wingNormal), dragNormal).normalized;
             var aoa = Mathf.Asin(Vector3.Dot(dragNormal, m_wingNormal)) * Mathf.Rad2Deg;
 
@@ -272,9 +277,7 @@ public class Wing : MonoBehaviour
             float airDensity = SciUtil.GetAirDensity(transform.position.y);
             float dynamicPressure = .5f * (localVel.sqrMagnitude) * airDensity * tri.area;
             var liftForce = liftNormal * coeffs.lift * dynamicPressure;
-            //Debug.DrawRay(transform.position + tri.position, liftForce, Color.green);
             var dragForce = dragNormal * (coeffs.drag + inducedDragCoeff) * dynamicPressure;
-            //Debug.DrawRay(transform.position + tri.position, dragForce, Color.red);
             rb.AddForceAtPosition(liftForce + dragForce, transform.position + tri.position, ForceMode.Force);
         }
     }

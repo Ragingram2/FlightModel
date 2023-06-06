@@ -681,10 +681,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 0
   m_airFoilEnabled: 1
   m_control: 0
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &1089715389365086056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6491155450439290571, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -727,10 +728,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 3
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &1214030508275201267 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5031470155089927506, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -773,10 +775,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 1
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &2474131129136198101 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 621597880766850952, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -797,10 +800,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 3
-  maxAngle: 10
+  m_maxAngle: 15
 --- !u!64 &8667319169477068891
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -875,8 +879,10 @@ MonoBehaviour:
   m_yawInput: Horizontal
   m_rollInput: Roll
   m_throttleStep: 0.1
-  m_motorForce: 8000
-  m_enableSAS: 0
+  m_motorForce: 50000
+  m_maxSpeed: 50
+  m_enableSAS: 1
+  m_perTriPhys: 1
 --- !u!114 &7060093490699508677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -891,10 +897,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 1
+  m_wingType: 0
   m_isControlSurface: 0
   m_airFoilEnabled: 1
   m_control: 0
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &3275902987731683139 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 541525646253953310, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1062,10 +1069,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 1
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &5861388018929217405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8908805629055465760, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1108,10 +1116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 0
   m_airFoilEnabled: 1
   m_control: 0
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &5885192300833503793 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8888379338929679468, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1154,10 +1163,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 0
   m_airFoilEnabled: 1
   m_control: 0
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &6169430706732791894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -41796459092660725, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1178,10 +1188,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 3
-  maxAngle: 10
+  m_maxAngle: 15
 --- !u!1 &6539949040949163096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1137392151605927419, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1224,10 +1235,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 2
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 4
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &8427549294337579924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2449657260544258615, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1248,10 +1260,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 1
   m_airFoilEnabled: 1
   m_control: 3
-  maxAngle: 15
+  m_maxAngle: 15
 --- !u!1 &8940357714445348911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6262041035160446578, guid: 7ca9abc0532fb1f47973ef2aee44dead,
@@ -1294,7 +1307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_airFoil: {fileID: 11400000, guid: c1c3fb5043369e74bb20b990545e450d, type: 2}
   m_wingNormalDirection: 0
+  m_wingType: 0
   m_isControlSurface: 0
   m_airFoilEnabled: 1
   m_control: 0
-  maxAngle: 15
+  m_maxAngle: 15

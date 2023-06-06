@@ -266,8 +266,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210261359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -228.3, y: 1.24, z: 0}
-  m_LocalScale: {x: 47.600273, y: 1, z: 1}
+  m_LocalPosition: {x: -228.3, y: 1.24, z: 15.3192}
+  m_LocalScale: {x: 47.600273, y: 1, z: 4.0637755}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3020,11 +3020,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2159597496261316374, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_Mass
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 2753057320988928780, guid: fec9a40760b9d6b43b27934a7c0de6ea,
         type: 3}
       propertyPath: m_Name
@@ -3084,31 +3079,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3331212408676193380, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_wingNormalDirection
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_maxSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_enableSAS
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_motorForce
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4476308707547351634, guid: fec9a40760b9d6b43b27934a7c0de6ea,
-        type: 3}
-      propertyPath: m_perTriPhys
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

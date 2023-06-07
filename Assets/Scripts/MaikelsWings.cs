@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using UnityEditor;
+using System.Runtime.CompilerServices;
 
 public class MaikelsWings : MonoBehaviour
 {
@@ -28,21 +29,29 @@ public class MaikelsWings : MonoBehaviour
     [SerializeField]
     private float m_motorForce = 100f;
     [SerializeField]
+    private float m_maxSpeed = 90f;
+    [SerializeField]
     private bool m_enableSAS = false;
+    [SerializeField]
+    private bool m_perTriPhys = false;
 
     private Rigidbody m_rigidbody;
-    private float m_throttle = 0;
     private List<Wing> m_wings = new List<Wing>();
+    private Vector3 m_vel;
     private Vector3 m_input;
     private Vector3 m_prevInput;
+    private Vector3 m_totalForce;
+    private float m_throttle = 0;
     private float m_pitchDiff = 0;
     private float m_rollDiff = 0;
     private float m_yawDiff = 0;
-    private Vector3 m_vel;
+    private float m_trim = 0;
+
 
     public float Throttle { get { return m_throttle; } set { m_throttle = value; } }
     public float AirSpeed { get { return m_rigidbody.velocity.magnitude; } }
     public bool SAS { get { return m_enableSAS; } }
+    public float Trim { get { return m_trim; } }
 
     void Start()
     {
@@ -56,6 +65,17 @@ public class MaikelsWings : MonoBehaviour
         {
             m_enableSAS = !m_enableSAS;
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            m_trim -= .1f;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            m_trim += .1f;
+        }
+        m_trim = Mathf.Clamp(m_trim, -15f, 15f);
+
         if (Input.GetKey(m_throttleUpKey))
         {
             m_throttle += m_throttleStep * Time.deltaTime;
@@ -91,36 +111,30 @@ public class MaikelsWings : MonoBehaviour
     {
         foreach (var wing in m_wings)
         {
+            wing.SetTrim(m_trim);
             wing.UpdateControlSurface(m_input);
-            wing.Simulate(m_rigidbody);
+            if (m_perTriPhys)
+                wing.SimulatePerTri(m_rigidbody);
+            else
+                wing.Simulate(m_rigidbody);
+
+            m_totalForce += wing.GetForce();
         }
-        m_rigidbody.AddRelativeForce(Vector3.forward * (m_throttle * m_motorForce));
+
+        if (m_rigidbody.velocity.magnitude < m_maxSpeed)
+        {
+            m_rigidbody.AddRelativeForce(Vector3.forward * (m_throttle * m_motorForce));
+        }
+
     }
 
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawRay(transform.position, transform.right * 1.1f);
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawRay(transform.position, transform.up * 1.1f);
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawRay(transform.position, transform.forward * 1.1f);
-
-        //Handles.Label(transform.position + transform.up * .5f, $"{m_input}");
-
+        Gizmos.color = Color.yellow;
         //if (m_rigidbody)
-        //{
-        //    m_vel = Vector3.one;
-        //    var temp = m_vel;
-        //    temp.x *= -1f;
-        //    m_vel = temp;
-        //    Gizmos.color = Color.magenta;
-        //    Gizmos.DrawRay(transform.position, new Vector3(m_vel.x, 0, 0).normalized);
-        //    Gizmos.color = Color.yellow;
-        //    Gizmos.DrawRay(transform.position, new Vector3(0, m_vel.y, 0).normalized);
-        //    Gizmos.color = Color.cyan;
-        //    Gizmos.DrawRay(transform.position, new Vector3(0, 0, m_vel.z).normalized);
-        //}
+        //    Gizmos.DrawRay(transform.position + transform.forward, m_rigidbody.velocity);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawRay(transform.position + transform.forward, m_totalForce);
     }
 }
 

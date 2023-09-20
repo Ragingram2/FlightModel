@@ -1,14 +1,44 @@
 using UnityEngine;
-using System.Collections;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using UnityEditor;
-using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 
 public class MaikelsWings : MonoBehaviour
 {
+    //[System.Serializable]
+    //public class AeroStruct
+    //{
+    //    public bool HasChildren() { return children.Count > 0; }
+
+    //    public AirFoil foil;
+
+    //    [SerializeField]
+    //    [ShowIf("HasChildren")]
+    //    [AllowNesting]
+    //    public List<AeroStruct> children = new List<AeroStruct>();
+
+    //    public AeroStruct(AirFoil f)
+    //    {
+    //        foil = f;
+    //    }
+
+    //    public void FindWing(Transform go)
+    //    {
+    //        foreach (Transform transf in go.transform)
+    //        {
+    //            var comp = transf.gameObject.GetComponent<Wing>();
+    //            if (comp != null)
+    //            {
+    //                children.Add(new AeroStruct(comp.Foil));
+    //                children[children.Count - 1].FindWing(transf);
+    //            }
+    //        }
+    //    }
+    //}
+
+    //[SerializeField]
+    //private AeroStruct m_aero;
     [SerializeField]
     private Transform m_thrustPoint;
     [SerializeField]
@@ -56,6 +86,9 @@ public class MaikelsWings : MonoBehaviour
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+        //m_aero = new AeroStruct(GetComponent<Wing>().Foil);
+        //m_aero.FindWing(transform);
+
         m_wings = GetComponentsInChildren<Wing>().ToList();
     }
 
@@ -130,6 +163,8 @@ public class MaikelsWings : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        //m_aero = new AeroStruct(GetComponent<Wing>().Foil);
+        //m_aero.FindWing(transform);
         Gizmos.color = Color.yellow;
         //if (m_rigidbody)
         //    Gizmos.DrawRay(transform.position + transform.forward, m_rigidbody.velocity);

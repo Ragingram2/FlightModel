@@ -1,6 +1,8 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour
@@ -23,10 +25,13 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField, Range(-89f, 89f)]
     float minVerticalAngle = -45f, maxVerticalAngle = 45f;
 
-    [SerializeField, Min(0f)]
+    [SerializeField]
+    bool autoAlign = false;
+
+    [SerializeField, Min(0f), ShowIf("autoAlign")]
     float alignDelay = 5f;
 
-    [SerializeField, Range(0f, 90f)]
+    [SerializeField, Range(0f, 90f), ShowIf("autoAlign")]
     float alignSmoothRange = 45f;
 
     [SerializeField]
@@ -67,27 +72,31 @@ public class OrbitCamera : MonoBehaviour
         regularCamera = GetComponent<Camera>();
         focusPoint = focus.position;
         transform.localRotation = Quaternion.Euler(orbitAngles);
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+            Cursor.lockState = CursorLockMode.Locked;
+        else if (Input.GetMouseButtonUp(1))
+            Cursor.lockState = CursorLockMode.None;
+
         distance += Input.mouseScrollDelta.y;
-        distance = Mathf.Clamp(distance, 0,20);
+        distance = Mathf.Clamp(distance, 0, 20);
     }
 
     void LateUpdate()
     {
         UpdateFocusPoint();
-        Quaternion lookRotation;
-        if (ManualRotation() || AutomaticRotation())
+        Quaternion lookRotation = transform.localRotation;
+        if (Input.GetMouseButton(1))
         {
-            ConstrainAngles();
-            lookRotation = Quaternion.Euler(orbitAngles);
-        }
-        else
-        {
-            lookRotation = transform.localRotation;
+            if (ManualRotation() || AutomaticRotation())
+            {
+                ConstrainAngles();
+                lookRotation = Quaternion.Euler(orbitAngles);
+            }
         }
 
         Vector3 lookDirection = lookRotation * Vector3.forward;
@@ -154,6 +163,9 @@ public class OrbitCamera : MonoBehaviour
 
     bool AutomaticRotation()
     {
+        if (autoAlign)
+            return false;
+
         if (Time.unscaledTime - lastManualRotationTime < alignDelay)
         {
             return false;

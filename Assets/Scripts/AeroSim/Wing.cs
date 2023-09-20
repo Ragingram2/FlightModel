@@ -84,6 +84,7 @@ public struct Triangle
     }
 }
 
+[System.Serializable]
 public class Wing : MonoBehaviour
 {
     [SerializeField]
@@ -104,6 +105,10 @@ public class Wing : MonoBehaviour
     [Range(0, 15)]
     private float m_maxAngle = 15;
 
+    public float angle = 0.0f;
+
+    public AirFoil Foil => m_airFoil;
+
     private Mesh m_mesh;
     private List<Triangle> m_triangles = new List<Triangle>();
     private Vector3 m_localVel;
@@ -123,6 +128,8 @@ public class Wing : MonoBehaviour
     private float m_chord = .5f;//height
     private float m_aspectRatio;
     private float m_angle;
+
+    private Vector3 dragNormal;
 
     public void Awake()
     {
@@ -289,10 +296,33 @@ public class Wing : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //foreach (var tri in m_triangles)
-        //{
-        //    Gizmos.DrawRay(transform.position + tri.position, tri.normal);
-        //}
+        if (m_airFoil != null)
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
 
+            float range = Mathf.Abs(m_airFoil.maxAlpha) + Mathf.Abs(m_airFoil.minAlpha);
+            float step = .25f;
+            Gizmos.color = Color.white;
+            for (float d = m_airFoil.minAlpha; d <= m_airFoil.maxAlpha; d += step)
+            {
+                var c1 = m_airFoil.sample(d);
+                var c2 = m_airFoil.sample(d + step);
+
+                var p1 = new Vector3(0, c1.lift / 2f, Mathf.Clamp(c1.drag, 0.0f, 0.15f) / .075f) + Vector3.forward*.1f;
+                var p2 = new Vector3(0, c2.lift / 2f, Mathf.Clamp(c2.drag, 0.0f, 0.15f) / .075f) + Vector3.forward * .1f;
+
+                Gizmos.DrawLine(p1, p2);
+                d += step * 2.0f;
+            }
+
+            //var aoa = Mathf.Asin(Vector3.Dot(m_dragNormal, m_wingNormal)) * Mathf.Rad2Deg;
+            (float lift, float drag) coeffs1 = m_airFoil.sample(angle - (3f * step));
+            (float lift, float drag) coeffs2 = m_airFoil.sample(angle + (3f * step));
+
+            var point1 = new Vector3(0, coeffs1.lift / 2f, Mathf.Clamp(coeffs1.drag, 0.0f, 0.15f) / .075f) + Vector3.forward * .1f;
+            var point2 = new Vector3(0, coeffs2.lift / 2f, Mathf.Clamp(coeffs2.drag, 0.0f, 0.15f) / .075f) + Vector3.forward * .1f;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(point1, point2);
+        }
     }
 }

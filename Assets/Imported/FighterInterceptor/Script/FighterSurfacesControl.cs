@@ -13,7 +13,7 @@ public class FighterSurfacesControl : MonoBehaviour
     public float rightElevatorSetAngle, leftElevatorSetAngle;
     public bool useMouse;
     public bool turnFlap;
-    private bool f;
+    private bool f = false;
     public float turnSpeed;
     private float angleX;
 	// Use this for initialization
